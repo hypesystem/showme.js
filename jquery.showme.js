@@ -1,13 +1,23 @@
 (function($) {
 	//Define jQuery function:
-	$.fn.showme = function() {
+	$.fn.showme = function(settings) {
+        settings = typeof settings !== "undefined" ? settings : {};
+        settings = $.extend({
+            error: function(e) { console.error(e); }
+        }, settings);
+    
 		var $content = $(this);
 	
 		//Create activator
 		$('<div class="showme-activator">Show me</div>')
 			.insertAfter($(this))
 			.click(function() {
-				 eval($content.text());
+                try {
+                    (new Function($content.text())();
+                }
+                catch(e) {
+                    settings.error(e);
+                }
 			});
 	}
 
