@@ -10,15 +10,17 @@
 	
 		//Create activator
 		$('<div class="showme-activator">Show me</div>')
-			.insertAfter($(this))
+			.insertAfter($content)
 			.click(function() {
                 try {
-                    (new Function($content.text())();
+                    (new Function($content.text()))();
                 }
                 catch(e) {
                     settings.error(e);
                 }
 			});
+        
+        return this;
 	}
 
 	//On page load
